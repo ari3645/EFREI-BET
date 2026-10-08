@@ -1,6 +1,6 @@
 # Projet : Application de paris sportifs
  
-## Description
+## Description. 
  
 Application  de paris sportifs, construite comme un ensemble de services indépendants qui communiquent entre eux par des événements. Les utilisateurs peuvent consulter des matchs, parier avec un solde virtuel et recevoir leurs gains lorsque le match est terminé.
  
