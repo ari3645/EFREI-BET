@@ -27,16 +27,15 @@ Application  de paris sportifs, construite comme un ensemble de services indépe
 | Événement | Émetteur | Récepteur |
 |---|---|---|
 | `MatchCréé`, `CotesModifiées`, `MatchDémarré`, `MatchTerminé`, `MatchAnnulé` | Matchs | Paris |
-| `PariPlacé`, `PariGagné`, `PariRemboursé` | Paris | Portefeuille |
-| `PariPerdu` | Paris | Statistiques (service prévu) |
+| `PariPlacé`, `PariGagné`, `PariRemboursé`, `PariPerdu` | Paris | Portefeuille |
 | `PortefeuilleCréé`, `SoldeModifié`, `DébitRefusé` | Portefeuille | Paris |
 
 ## Documentation JSON
 
-- `services.json` : les services et leurs commandes (étape 2).
-- `commandes_*.json` : le détail des commandes de chaque service (données, préconditions, événements émis).
-- `agregats_*.json` : les agrégats de chaque service, y compris les réplicas du service Paris (étapes 3 et 4).
-- `evenement_*.json` : un fichier par événement échangé entre services (étape 4).
+- `services.json` : les services et leurs commandes.
+- `commandes_*.json` : le détail des commandes de chaque service.
+- `agregats_*.json` : les agrégats de chaque service, y compris les réplicas du service Paris.
+- `evenement_*.json` : un fichier par événement échangé entre services.
 
 ## Équipe
 
