@@ -1,0 +1,15 @@
+{
+  "typeEvenement": "DébitRefusé",
+  "description": "Informe Paris que la mise n'a pas pu être débitée (solde insuffisant) : le pari doit être rejeté. Le portefeuille n'est pas modifié.",
+  "emetteur": "Portefeuille",
+  "recepteur": "Paris",
+  "agregatId": "pf-002",
+  "donneesModifiees": "aucune (le portefeuille n'est pas modifié)",
+  "nouvelleValeur": {
+    "pariId": "pari-050",
+    "motif": "SOLDE_INSUFFISANT",
+    "solde": 4
+  },
+  "version": 1,
+  "dateEvenement": "2026-10-09T18:30:01+02:00"
+}

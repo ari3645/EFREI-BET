@@ -1,0 +1,13 @@
+{
+  "typeEvenement": "CotesModifiées",
+  "description": "Met à jour les cotes du réplica dans le service Paris.",
+  "emetteur": "Matchs",
+  "recepteur": "Paris",
+  "agregatId": "m-001",
+  "donneesModifiees": "cotes",
+  "nouvelleValeur": {
+    "cotes": { "domicile": 1.8, "nul": 3.7, "exterieur": 4.6 }
+  },
+  "version": 2,
+  "dateEvenement": "2026-10-20T09:30:00+02:00"
+}

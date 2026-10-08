@@ -1,0 +1,18 @@
+{
+  "eventType": "MatchCreated",
+  "description": "Crée le réplica du match dans le service Paris.",
+  "emitter": "Matchs",
+  "receiver": "Paris",
+  "aggregateId": "m-001",
+  "modifiedData": "match (création complète du réplica)",
+  "newValue": {
+    "matchId": "m-001",
+    "homeTeam": "PSG",
+    "awayTeam": "OM",
+    "startTime": "2026-10-25T20:45:00+02:00",
+    "status": "SCHEDULED",
+    "odds": { "home": 1.65, "draw": 3.90, "away": 5.20 }
+  },
+  "version": 1,
+  "occurredAt": "2026-10-08T11:00:00+02:00"
+}

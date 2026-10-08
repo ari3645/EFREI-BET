@@ -1,0 +1,73 @@
+{
+  "service": "Matchs",
+  "description": "Service propriétaire des matchs, des cotes et des résultats.",
+  "commands": [
+    {
+      "name": "CreateMatch",
+      "description": "Crée un nouveau match avec ses cotes initiales.",
+      "input": {
+        "homeTeam": "string",
+        "awayTeam": "string",
+        "competition": "string",
+        "startTime": "datetime ISO 8601",
+        "odds": {
+          "home": "number > 1",
+          "draw": "number > 1",
+          "away": "number > 1"
+        }
+      },
+      "preconditions": [
+        "homeTeam différent de awayTeam",
+        "startTime dans le futur"
+      ],
+      "emits": "MatchCreated",
+      "example": {
+        "homeTeam": "PSG",
+        "awayTeam": "OM",
+        "competition": "Ligue 1",
+        "startTime": "2026-10-25T20:45:00+02:00",
+        "odds": { "home": 1.65, "draw": 3.90, "away": 5.20 }
+      }
+    },
+    {
+      "name": "UpdateOdds",
+      "description": "Met à jour les cotes d'un match qui n'a pas encore commencé.",
+      "input": {
+        "matchId": "string",
+        "odds": {
+          "home": "number > 1",
+          "draw": "number > 1",
+          "away": "number > 1"
+        }
+      },
+      "preconditions": [
+        "le match existe",
+        "status = SCHEDULED"
+      ],
+      "emits": "OddsUpdated",
+      "example": {
+        "matchId": "m-001",
+        "odds": { "home": 1.80, "draw": 3.70, "away": 4.60 }
+      }
+    },
+    {
+      "name": "FinishMatch",
+      "description": "Enregistre le résultat final et clôture le match.",
+      "input": {
+        "matchId": "string",
+        "homeScore": "integer >= 0",
+        "awayScore": "integer >= 0"
+      },
+      "preconditions": [
+        "le match existe",
+        "status différent de FINISHED"
+      ],
+      "emits": "MatchFinished",
+      "example": {
+        "matchId": "m-001",
+        "homeScore": 2,
+        "awayScore": 1
+      }
+    }
+  ]
+}
