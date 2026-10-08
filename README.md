@@ -20,6 +20,8 @@ Application  de paris sportifs, construite comme un ensemble de services indépe
 - Le service **Paris** demande au service **Utilisateurs / Portefeuille** de débiter la mise lors d'un pari.
 - À la fin d'un match, le service **Paris** règle les paris concernés et demande le crédit des gains.
 
+## Une projection, elle, ne sert pas principalement à modifier les données.
+Elle prend des données qui existent déjà dans les autres services et les transforme pour obtenir une nouvelle vue.
 ## Équipe
  
 - Christophe CUI

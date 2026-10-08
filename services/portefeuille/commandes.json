@@ -1,0 +1,60 @@
+{
+  "service": "Portefeuille",
+  "description": "Gère les comptes utilisateurs et leur portefeuille (solde fictif)",
+  "commandes": [
+    {
+      "nom": "CréerPortefeuille",
+      "description": "Crée le compte d'un utilisateur avec son portefeuille et un solde initial fictif",
+      "declencheur": "Demande d'un utilisateur (inscription)",
+      "donnees": {
+        "nomUtilisateur": "string",
+        "email": "string",
+        "soldeInitial": "number"
+      },
+      "resultat": "Portefeuille créé"
+    },
+    {
+      "nom": "DébiterPortefeuille",
+      "description": "Retire la mise du solde de l'utilisateur lorsqu'un pari est placé",
+      "declencheur": "Événement PariPlacé (service Paris)",
+      "donnees": {
+        "portefeuilleId": "string",
+        "pariId": "string",
+        "montant": "number"
+      },
+      "regles": [
+        "Le montant doit être strictement positif",
+        "Le solde doit être suffisant, sinon la commande est refusée"
+      ],
+      "resultat": "Solde diminué du montant"
+    },
+    {
+      "nom": "CréditerPortefeuille",
+      "description": "Ajoute les gains au solde de l'utilisateur lorsqu'un pari est gagné",
+      "declencheur": "Événement PariGagné (service Paris)",
+      "donnees": {
+        "portefeuilleId": "string",
+        "pariId": "string",
+        "montant": "number"
+      },
+      "regles": [
+        "Le montant doit être strictement positif",
+        "Un même pari ne peut être crédité qu'une seule fois"
+      ],
+      "resultat": "Solde augmenté du montant"
+    },
+    {
+      "nom": "RechargerPortefeuille",
+      "description": "Ajoute des fonds fictifs au portefeuille de l'utilisateur",
+      "declencheur": "Demande d'un utilisateur",
+      "donnees": {
+        "portefeuilleId": "string",
+        "montant": "number"
+      },
+      "regles": [
+        "Le montant doit être strictement positif"
+      ],
+      "resultat": "Solde augmenté du montant"
+    }
+  ]
+}

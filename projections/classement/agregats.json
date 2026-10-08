@@ -1,0 +1,36 @@
+
+{
+  "service": "Classement",
+  "agregats": [
+    {
+      "nom": "ClassementParieur",
+      "description": "Statistiques d'un utilisateur permettant de classer les parieurs selon leurs résultats",
+      "racine": "ClassementParieur",
+      "identifiant": "utilisateurId",
+      "attributs": {
+        "utilisateurId": "string",
+        "nombreParis": "number",
+        "parisGagnes": "number",
+        "parisPerdus": "number",
+        "totalMises": "number",
+        "totalGains": "number",
+        "benefice": "number"
+      },
+      
+      "invariants": [ 
+        "Le nombre de paris doit être égal au nombre de paris gagnés plus le nombre de paris perdus",
+        "Les montants des mises et des gains ne peuvent pas être négatifs",
+        "Le bénéfice est égal au total des gains moins le total des mises"
+      ],
+      "exemple": {
+        "utilisateurId": "u-015",
+        "nombreParis": 999,
+        "parisGagnes": 700,
+        "parisPerdus": 299,
+        "totalMises": 200000,
+        "totalGains": 400000,
+        "benefice": 200000
+      }
+    }
+  ]
+}
