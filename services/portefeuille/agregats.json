@@ -1,1 +1,71 @@
-
+{
+  "service": "Portefeuille",
+  "agregats": [
+    {
+      "nom": "Portefeuille",
+      "description": "Portefeuille d'un utilisateur : son identité, son solde fictif et l'historique de ses mouvements",
+      "racine": "Portefeuille",
+      "identifiant": "portefeuilleId",
+      "attributs": {
+        "portefeuilleId": "string",
+        "utilisateur": {
+          "utilisateurId": "string",
+          "nomUtilisateur": "string",
+          "email": "string"
+        },
+        "solde": "number",
+        "devise": "string",
+        "statut": "string (ACTIF | SUSPENDU)",
+        "dateCreation": "date",
+        "mouvements": [
+          {
+            "mouvementId": "string",
+            "type": "string (DEBIT | CREDIT | RECHARGE)",
+            "montant": "number",
+            "pariId": "string (absent pour une recharge)",
+            "date": "date"
+          }
+        ]
+      },
+      "invariants": [
+        "Le solde ne peut jamais être négatif",
+        "Le montant d'un mouvement est strictement positif",
+        "Un même pariId ne peut apparaître qu'une seule fois par type de mouvement (pas de double débit ni de double crédit)",
+        "Le solde est égal à la somme des recharges et crédits moins la somme des débits"
+      ],
+      "commandes": [
+        "CréerPortefeuille",
+        "DébiterPortefeuille",
+        "CréditerPortefeuille",
+        "RechargerPortefeuille"
+      ],
+      "exemple": {
+        "portefeuilleId": "pf-001",
+        "utilisateur": {
+          "utilisateurId": "u-001",
+          "nomUtilisateur": "albin",
+          "email": "albin@exemple.fr"
+        },
+        "solde": 90,
+        "devise": "EUR",
+        "statut": "ACTIF",
+        "dateCreation": "2026-10-08",
+        "mouvements": [
+          {
+            "mouvementId": "m-001",
+            "type": "RECHARGE",
+            "montant": 100,
+            "date": "2026-10-08"
+          },
+          {
+            "mouvementId": "m-002",
+            "type": "DEBIT",
+            "montant": 10,
+            "pariId": "pari-042",
+            "date": "2026-10-08"
+          }
+        ]
+      }
+    }
+  ]
+}
