@@ -1,0 +1,13 @@
+{
+  "eventType": "OddsUpdated",
+  "description": "Met à jour les cotes du réplica dans le service Paris.",
+  "emitter": "Matchs",
+  "receiver": "Paris",
+  "aggregateId": "m-001",
+  "modifiedData": "odds",
+  "newValue": {
+    "odds": { "home": 1.80, "draw": 3.70, "away": 4.60 }
+  },
+  "version": 2,
+  "occurredAt": "2026-10-20T09:30:00+02:00"
+}
