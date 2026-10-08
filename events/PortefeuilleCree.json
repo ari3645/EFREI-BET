@@ -1,0 +1,16 @@
+{
+  "typeEvenement": "PortefeuilleCréé",
+  "description": "Crée le réplica du portefeuille dans le service Paris, qui peut ainsi connaître le solde d'un utilisateur sans appeler le service Portefeuille.",
+  "emetteur": "Portefeuille",
+  "recepteur": "Paris",
+  "agregatId": "pf-001",
+  "donneesModifiees": "portefeuille (création complète du réplica)",
+  "nouvelleValeur": {
+    "portefeuilleId": "pf-001",
+    "utilisateurId": "u-001",
+    "nomUtilisateur": "albin",
+    "solde": 100
+  },
+  "version": 1,
+  "dateEvenement": "2026-10-08T09:00:00+02:00"
+}

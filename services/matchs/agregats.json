@@ -1,0 +1,64 @@
+{
+  "service": "Matchs",
+  "agregats": [
+    {
+      "nom": "Match",
+      "description": "Match sportif avec ses cotes et son résultat. Le service Matchs en est le seul propriétaire.",
+      "racine": "Match",
+      "identifiant": "matchId",
+      "attributs": {
+        "matchId": "string (identifiant unique)",
+        "equipeDomicile": "string",
+        "equipeExterieure": "string",
+        "competition": "string",
+        "heureDebut": "datetime ISO 8601",
+        "statut": "PROGRAMME | TERMINE",
+        "cotes": {
+          "domicile": "number > 1",
+          "nul": "number > 1",
+          "exterieur": "number > 1"
+        },
+        "resultat": {
+          "scoreDomicile": "integer | null",
+          "scoreExterieur": "integer | null",
+          "issue": "DOMICILE | NUL | EXTERIEUR | null"
+        },
+        "version": "integer (incrémenté à chaque modification)",
+        "dateCreation": "datetime",
+        "dateMiseAJour": "datetime"
+      },
+      "invariants": [
+        "equipeDomicile est différente de equipeExterieure",
+        "les trois cotes sont strictement supérieures à 1",
+        "les cotes ne sont modifiables que tant que statut = PROGRAMME",
+        "le résultat (scores et issue) est null tant que statut = PROGRAMME, et renseigné quand statut = TERMINE",
+        "issue est calculée à partir des scores : DOMICILE si scoreDomicile > scoreExterieur, EXTERIEUR si inférieur, NUL si égal",
+        "un match TERMINE n'est plus modifiable"
+      ],
+      "commandes": [
+        "CréerMatch",
+        "ModifierCotes",
+        "TerminerMatch"
+      ],
+      "evenementsEmis": [
+        "MatchCréé",
+        "CotesModifiées",
+        "MatchTerminé"
+      ],
+      "exemple_document_mongodb": {
+        "_id": "m-001",
+        "matchId": "m-001",
+        "equipeDomicile": "PSG",
+        "equipeExterieure": "OM",
+        "competition": "Ligue 1",
+        "heureDebut": "2026-10-25T20:45:00+02:00",
+        "statut": "TERMINE",
+        "cotes": { "domicile": 1.8, "nul": 3.7, "exterieur": 4.6 },
+        "resultat": { "scoreDomicile": 2, "scoreExterieur": 1, "issue": "DOMICILE" },
+        "version": 3,
+        "dateCreation": "2026-10-08T11:00:00+02:00",
+        "dateMiseAJour": "2026-10-25T22:40:00+02:00"
+      }
+    }
+  ]
+}

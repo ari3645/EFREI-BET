@@ -1,0 +1,16 @@
+{
+  "typeEvenement": "PariGagné",
+  "description": "Informe le Portefeuille qu'un pari est gagné : déclenche le crédit des gains.",
+  "emetteur": "Paris",
+  "recepteur": "Portefeuille",
+  "agregatId": "pari-042",
+  "donneesModifiees": ["statut", "gain"],
+  "nouvelleValeur": {
+    "pariId": "pari-042",
+    "portefeuilleId": "pf-001",
+    "statut": "GAGNE",
+    "montant": 16.5
+  },
+  "version": 3,
+  "dateEvenement": "2026-10-25T22:41:00+02:00"
+}

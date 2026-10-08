@@ -1,0 +1,135 @@
+{
+  "projet": "Application de paris sportifs (fictifs)",
+  "services": [
+    {
+      "nom": "Matchs",
+      "description": "Service propriétaire des matchs, des cotes et des résultats.",
+      "commandes": [
+        {
+          "nom": "CréerMatch",
+          "description": "Crée un nouveau match avec ses cotes initiales.",
+          "declencheur": "Demande d'un administrateur",
+          "donnees": {
+            "equipeDomicile": "string",
+            "equipeExterieure": "string",
+            "competition": "string",
+            "heureDebut": "datetime ISO 8601",
+            "cotes": { "domicile": "number > 1", "nul": "number > 1", "exterieur": "number > 1" }
+          }
+        },
+        {
+          "nom": "ModifierCotes",
+          "description": "Met à jour les cotes d'un match qui n'a pas encore commencé.",
+          "declencheur": "Demande d'un administrateur",
+          "donnees": {
+            "matchId": "string",
+            "cotes": { "domicile": "number > 1", "nul": "number > 1", "exterieur": "number > 1" }
+          }
+        },
+        {
+          "nom": "DémarrerMatch",
+          "description": "Passe le match en cours et ferme la prise de paris.",
+          "declencheur": "Demande d'un administrateur",
+          "donnees": { "matchId": "string" }
+        },
+        {
+          "nom": "TerminerMatch",
+          "description": "Enregistre le résultat final et clôture le match.",
+          "declencheur": "Demande d'un administrateur",
+          "donnees": {
+            "matchId": "string",
+            "scoreDomicile": "integer >= 0",
+            "scoreExterieur": "integer >= 0"
+          }
+        },
+        {
+          "nom": "AnnulerMatch",
+          "description": "Annule un match (annulation ou report) : les paris concernés doivent être remboursés.",
+          "declencheur": "Demande d'un administrateur",
+          "donnees": { "matchId": "string", "motif": "string" }
+        }
+      ]
+    },
+    {
+      "nom": "Paris",
+      "description": "Gère les paris placés par les utilisateurs, de leur création jusqu'à leur règlement (gagné, perdu ou remboursé).",
+      "commandes": [
+        {
+          "nom": "PlacerPari",
+          "description": "Crée un pari sur l'issue d'un match. Le pari est accepté une fois la mise débitée par le service Portefeuille.",
+          "declencheur": "Demande d'un utilisateur",
+          "donnees": {
+            "utilisateurId": "string",
+            "matchId": "string",
+            "selection": "DOMICILE | NUL | EXTERIEUR",
+            "mise": "number > 0"
+          }
+        },
+        {
+          "nom": "ConfirmerPari",
+          "description": "Accepte le pari une fois que sa mise a été débitée du portefeuille.",
+          "declencheur": "Événement SoldeModifié (raison = DEBIT) du service Portefeuille",
+          "donnees": { "pariId": "string" }
+        },
+        {
+          "nom": "RefuserPari",
+          "description": "Rejette le pari lorsque le débit de la mise a été refusé par le portefeuille.",
+          "declencheur": "Événement DébitRefusé du service Portefeuille",
+          "donnees": { "pariId": "string", "motif": "string" }
+        },
+        {
+          "nom": "RéglerPari",
+          "description": "Détermine si un pari est gagné ou perdu lorsque son match est terminé.",
+          "declencheur": "Événement MatchTerminé du service Matchs",
+          "donnees": { "pariId": "string", "issue": "DOMICILE | NUL | EXTERIEUR" }
+        },
+        {
+          "nom": "AnnulerPari",
+          "description": "Annule un pari accepté et rend la mise lorsque son match est annulé.",
+          "declencheur": "Événement MatchAnnulé du service Matchs",
+          "donnees": { "pariId": "string", "motif": "string" }
+        }
+      ]
+    },
+    {
+      "nom": "Portefeuille",
+      "description": "Gère les comptes utilisateurs et leur portefeuille (solde fictif).",
+      "commandes": [
+        {
+          "nom": "CréerPortefeuille",
+          "description": "Crée le compte d'un utilisateur avec son portefeuille et un solde initial fictif.",
+          "declencheur": "Demande d'un utilisateur (inscription)",
+          "donnees": {
+            "nomUtilisateur": "string",
+            "email": "string",
+            "soldeInitial": "number >= 0"
+          }
+        },
+        {
+          "nom": "DébiterPortefeuille",
+          "description": "Retire la mise du solde de l'utilisateur lorsqu'un pari est placé.",
+          "declencheur": "Événement PariPlacé du service Paris",
+          "donnees": { "portefeuilleId": "string", "pariId": "string", "montant": "number > 0" }
+        },
+        {
+          "nom": "CréditerPortefeuille",
+          "description": "Ajoute les gains au solde de l'utilisateur lorsqu'un pari est gagné.",
+          "declencheur": "Événement PariGagné du service Paris",
+          "donnees": { "portefeuilleId": "string", "pariId": "string", "montant": "number > 0" }
+        },
+        {
+          "nom": "RembourserPari",
+          "description": "Rend la mise à l'utilisateur lorsqu'un pari est remboursé (match annulé).",
+          "declencheur": "Événement PariRemboursé du service Paris",
+          "donnees": { "portefeuilleId": "string", "pariId": "string", "montant": "number > 0" }
+        },
+        {
+          "nom": "RechargerPortefeuille",
+          "description": "Ajout des fonds fictifs au portefeuille de l'utilisateur.",
+          "declencheur": "Demande d'un utilisateur",
+          "donnees": { "portefeuilleId": "string", "montant": "number > 0" }
+        }
+      ]
+    }
+  ]
+}
