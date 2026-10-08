@@ -22,7 +22,7 @@ Application  de paris sportifs, construite comme un ensemble de services indépe
 
 ## Équipe
  
-- Albin RIVIERE
 - Christophe CUI
-- Nabil SAIED
 - Serenic MOHANRAJU
+- Albin RIVIERE
+- Nabil SAIED
