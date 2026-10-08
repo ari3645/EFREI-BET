@@ -1,0 +1,20 @@
+{
+  "service": "Classement",
+  "description": "Transforme les données des paris en statistiques permettant de classer les parieurs",
+  "requete": {
+    "source": "Paris",
+    "regrouperPar": "utilisateurId",
+    "calculs": {
+      "nombreParis": "compter le nombre de paris",
+      "parisGagnes": "compter les paris avec le statut GAGNE",
+      "parisPerdus": "compter les paris avec le statut PERDU",
+      "totalMises": "additionner les montants des mises",
+      "totalGains": "additionner les montants des gains",
+      "benefice": "totalGains - totalMises"
+    },
+    "tri": {
+      "champ": "benefice",
+      "ordre": "decroissant"
+    }
+  }
+}

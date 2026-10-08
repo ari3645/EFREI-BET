@@ -1,0 +1,62 @@
+{
+  "service": "Classement",
+  "agregats": [
+    {
+      "nom": "ClassementParieur",
+      "description": "Statistiques d'un utilisateur permettant de classer les parieurs selon leurs résultats. Projection construite à partir des événements du service Paris : le service Classement n'a aucune commande appelée par les utilisateurs et ne modifie jamais les données des autres services.",
+      "racine": "ClassementParieur",
+      "identifiant": "utilisateurId",
+      "attributs": {
+        "utilisateurId": "string",
+        "nombreParis": "number",
+        "parisGagnes": "number",
+        "parisPerdus": "number",
+        "totalMises": "number (somme des mises des paris gagnés et perdus)",
+        "totalGains": "number (somme des sommes versées pour les paris gagnés, mise incluse)",
+        "benefice": "number",
+        "parisTraites": ["string (pariId déjà comptés)"],
+        "version": "integer (incrémenté à chaque pari compté)",
+        "dateMiseAJour": "datetime ISO 8601"
+      },
+      "invariants": [
+        "Le nombre de paris doit être égal au nombre de paris gagnés plus le nombre de paris perdus",
+        "Les montants des mises et des gains ne peuvent pas être négatifs",
+        "Le bénéfice est égal au total des gains moins le total des mises",
+        "Un même pari n'est compté qu'une seule fois (un événement reçu en double est ignoré grâce à parisTraites)",
+        "Seuls les paris gagnés ou perdus sont comptés : les paris refusés, remboursés ou encore en cours sont ignorés"
+      ],
+      "evenementsRecus": [
+        "PariGagné",
+        "PariPerdu"
+      ],
+      "miseAJourPar": {
+        "PariGagné": "nombreParis + 1, parisGagnes + 1, totalMises + mise, totalGains + montant, recalcul de benefice",
+        "PariPerdu": "nombreParis + 1, parisPerdus + 1, totalMises + mise, recalcul de benefice"
+      },
+      "exemple": {
+        "utilisateurId": "u-015",
+        "nombreParis": 999,
+        "parisGagnes": 700,
+        "parisPerdus": 299,
+        "totalMises": 200000,
+        "totalGains": 400000,
+        "benefice": 200000
+      },
+      "exempleProjection": {
+        "evenementRecu": "PariGagné (pari-042 : mise 10, montant 16.5, utilisateur u-001)",
+        "resultat": {
+          "utilisateurId": "u-001",
+          "nombreParis": 1,
+          "parisGagnes": 1,
+          "parisPerdus": 0,
+          "totalMises": 10,
+          "totalGains": 16.5,
+          "benefice": 6.5,
+          "parisTraites": ["pari-042"],
+          "version": 1,
+          "dateMiseAJour": "2026-10-25T22:41:01+02:00"
+        }
+      }
+    }
+  ]
+}

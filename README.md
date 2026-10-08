@@ -1,9 +1,17 @@
 # Projet : Application de paris sportifs
+<<<<<<< HEAD
+ 
+## Description. 
+ 
+Application  de paris sportifs, construite comme un ensemble de services indépendants qui communiquent entre eux par des événements. Les utilisateurs peuvent consulter des matchs, parier avec un solde virtuel et recevoir leurs gains lorsque le match est terminé.
+ 
+=======
 
 ## Description
 
 Application de paris sportifs, construite comme un ensemble de services indépendants qui communiquent entre eux par des événements. Les utilisateurs peuvent consulter des matchs, parier avec un solde virtuel et recevoir leurs gains lorsque le match est terminé.
 
+>>>>>>> 36a280724c53356e11bcc944070ff92daa7b5026
 > Aucun argent réel n'est utilisé : les soldes et les mises sont purement fictifs.
 
 ## Services
@@ -38,6 +46,8 @@ Application de paris sportifs, construite comme un ensemble de services indépen
 - `agregats_*.json` : les agrégats de chaque service, y compris les réplicas du service Paris (étapes 3 et 4).
 - `evenement_*.json` : un fichier par événement échangé entre services (étape 4).
 
+## Une projection, elle, ne sert pas principalement à modifier les données.
+Elle prend des données qui existent déjà dans les autres services et les transforme pour obtenir une nouvelle vue.
 ## Équipe
 
 - Christophe CUI
