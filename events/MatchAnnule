@@ -1,0 +1,14 @@
+{
+  "typeEvenement": "MatchAnnulé",
+  "description": "Informe Paris que le match est annulé : les paris concernés doivent être remboursés.",
+  "emetteur": "Matchs",
+  "recepteur": "Paris",
+  "agregatId": "m-002",
+  "donneesModifiees": ["statut", "motifAnnulation"],
+  "nouvelleValeur": {
+    "statut": "ANNULE",
+    "motifAnnulation": "Terrain impraticable"
+  },
+  "version": 2,
+  "dateEvenement": "2026-10-22T14:00:00+02:00"
+}
