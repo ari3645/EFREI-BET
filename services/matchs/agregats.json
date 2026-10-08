@@ -1,44 +1,64 @@
 {
   "service": "Matchs",
-  "aggregate": "Match",
-  "schema": {
-    "matchId": "string (identifiant unique)",
-    "homeTeam": "string",
-    "awayTeam": "string",
-    "competition": "string",
-    "startTime": "datetime ISO 8601",
-    "status": "SCHEDULED | FINISHED",
-    "odds": {
-      "home": "number",
-      "draw": "number",
-      "away": "number"
-    },
-    "result": {
-      "homeScore": "integer | null",
-      "awayScore": "integer | null",
-      "outcome": "HOME | DRAW | AWAY | null"
-    },
-    "version": "integer (incrémenté à chaque modification)",
-    "createdAt": "datetime",
-    "updatedAt": "datetime"
-  },
-  "example_document_mongodb": {
-    "_id": "m-001",
-    "matchId": "m-001",
-    "homeTeam": "PSG",
-    "awayTeam": "OM",
-    "competition": "Ligue 1",
-    "startTime": "2026-10-25T20:45:00+02:00",
-    "status": "FINISHED",
-    "odds": { "home": 1.80, "draw": 3.70, "away": 4.60 },
-    "result": { "homeScore": 2, "awayScore": 1, "outcome": "HOME" },
-    "version": 3,
-    "createdAt": "2026-10-08T11:00:00+02:00",
-    "updatedAt": "2026-10-25T22:40:00+02:00"
-  },
-  "rules": [
-    "outcome est calculé à partir des scores : HOME si homeScore > awayScore, AWAY si inférieur, DRAW si égal",
-    "les cotes ne sont modifiables que tant que status = SCHEDULED",
-    "un match FINISHED n'est plus modifiable"
+  "agregats": [
+    {
+      "nom": "Match",
+      "description": "Match sportif avec ses cotes et son résultat. Le service Matchs en est le seul propriétaire.",
+      "racine": "Match",
+      "identifiant": "matchId",
+      "attributs": {
+        "matchId": "string (identifiant unique)",
+        "equipeDomicile": "string",
+        "equipeExterieure": "string",
+        "competition": "string",
+        "heureDebut": "datetime ISO 8601",
+        "statut": "PROGRAMME | TERMINE",
+        "cotes": {
+          "domicile": "number > 1",
+          "nul": "number > 1",
+          "exterieur": "number > 1"
+        },
+        "resultat": {
+          "scoreDomicile": "integer | null",
+          "scoreExterieur": "integer | null",
+          "issue": "DOMICILE | NUL | EXTERIEUR | null"
+        },
+        "version": "integer (incrémenté à chaque modification)",
+        "dateCreation": "datetime",
+        "dateMiseAJour": "datetime"
+      },
+      "invariants": [
+        "equipeDomicile est différente de equipeExterieure",
+        "les trois cotes sont strictement supérieures à 1",
+        "les cotes ne sont modifiables que tant que statut = PROGRAMME",
+        "le résultat (scores et issue) est null tant que statut = PROGRAMME, et renseigné quand statut = TERMINE",
+        "issue est calculée à partir des scores : DOMICILE si scoreDomicile > scoreExterieur, EXTERIEUR si inférieur, NUL si égal",
+        "un match TERMINE n'est plus modifiable"
+      ],
+      "commandes": [
+        "CréerMatch",
+        "ModifierCotes",
+        "TerminerMatch"
+      ],
+      "evenementsEmis": [
+        "MatchCréé",
+        "CotesModifiées",
+        "MatchTerminé"
+      ],
+      "exemple_document_mongodb": {
+        "_id": "m-001",
+        "matchId": "m-001",
+        "equipeDomicile": "PSG",
+        "equipeExterieure": "OM",
+        "competition": "Ligue 1",
+        "heureDebut": "2026-10-25T20:45:00+02:00",
+        "statut": "TERMINE",
+        "cotes": { "domicile": 1.8, "nul": 3.7, "exterieur": 4.6 },
+        "resultat": { "scoreDomicile": 2, "scoreExterieur": 1, "issue": "DOMICILE" },
+        "version": 3,
+        "dateCreation": "2026-10-08T11:00:00+02:00",
+        "dateMiseAJour": "2026-10-25T22:40:00+02:00"
+      }
+    }
   ]
 }
