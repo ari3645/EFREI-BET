@@ -1,0 +1,13 @@
+{
+  "betId": "BET-1",
+  "userId": "u-042",
+  "match": {
+    "matchId": "m-001",
+    "homeTeam": "PSG",
+    "awayTeam": "OM",
+    "cote": 1.80
+  },
+  "selection": "HOME",
+  "mise": 20,
+  "status": "PENDING"
+}
